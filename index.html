@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #app{
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        #problem{
+            font-size: xxx-large;
+        }
+        #score{
+            font-size: xxx-large;
+        }
+        #answer{
+            width: 50%;
+            margin: 1rem;
+            font-size: xxx-large;
+            text-align: center;
+        }
+        .incorrect{
+            color: red;
+
+        }
+        #tryagain{
+            color: red;
+            font-size: xxx-large;
+            padding-top: 1rem;
+        }
+        #youwon{
+            color: green;
+            font-size: xxx-large;
+            padding-top: 1rem;
+        }
+    </style>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        function Question() {
+            const [state, setstate] = React.useState({
+                a: Math.ceil(Math.random()*10),
+                b: Math.ceil(Math.random()*10),
+                ans: "",
+                score:0,
+                incorrect: false
+            });
+            function keyPressed(event) {
+                const key=event.key;
+                if(key=='Enter'){
+                    if(state.a+state.b===parseInt(state.ans)){
+                        setstate({
+                            ...state,
+                            a: Math.ceil(Math.random()*10),
+                            b: Math.ceil(Math.random()*10), 
+                            ans: "",
+                            incorrect: false,
+                            score: state.score+1
+                        });
+                    }
+                    else{
+                        setstate({
+                            ...state, 
+                            ans: "",
+                            score: state.score-1,
+                            incorrect: true
+                        });
+                    }
+                }
+            }
+            function updateValue(events) {
+                setstate({
+                    ...state,
+                    ans: events.target.value
+                });
+            }
+            if(state.score<=-5){
+                return (
+                    <div id="tryagain">Try Again!</div>
+                )
+            }
+            if(state.score>=10){
+                return(
+                    <div id="youwon">You Won!</div>
+                )
+            }
+            return(
+                <div id="question">
+                    <div id="problem" class={state.incorrect?"incorrect":""}>{state.a} + {state.b}</div>
+                    <input autoFocus id="answer" onChange={updateValue} onKeyPress={keyPressed} value={state.ans}/>
+                    <div id="score">Score: {state.score}</div> 
+                </div>
+            );
+            
+        }
+        function App() {
+            return(
+                <Question/>
+            )
+            
+        }
+
+
+        ReactDOM.render(<App/>,document.querySelector("#app"))
+    </script>
+    <title>Sample App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
