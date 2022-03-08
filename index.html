@@ -39,9 +39,11 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script type="text/babel">
         function Question() {
+            const numDigits=2;
+            const tens=Math.pow(10,numDigits);
             const [state, setstate] = React.useState({
-                a: Math.ceil(Math.random()*10),
-                b: Math.ceil(Math.random()*10),
+                a: Math.ceil(Math.random()*tens),
+                b: Math.ceil(Math.random()*tens),
                 ans: "",
                 score:0,
                 incorrect: false
@@ -52,8 +54,8 @@
                     if(state.a+state.b===parseInt(state.ans)){
                         setstate({
                             ...state,
-                            a: Math.ceil(Math.random()*10),
-                            b: Math.ceil(Math.random()*10), 
+                            a: Math.ceil(Math.random()*tens),
+                            b: Math.ceil(Math.random()*tens), 
                             ans: "",
                             incorrect: false,
                             score: state.score+1
