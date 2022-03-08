@@ -88,7 +88,7 @@
             return(
                 <div id="question">
                     <div id="problem" class={state.incorrect?"incorrect":""}>{state.a} + {state.b}</div>
-                    <input autoFocus id="answer" onChange={updateValue} onKeyPress={keyPressed} value={state.ans}/>
+                    <input type="number" autoFocus id="answer" onChange={updateValue} onKeyPress={keyPressed} value={state.ans}/>
                     <div id="score">Score: {state.score}</div> 
                 </div>
             );
